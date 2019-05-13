@@ -17,7 +17,7 @@ var newW=0; //新規幅初期化
 var newH=0; //新規高さ初期化
 
 if(w>widthLim || h>heightLim){
-    if(h > 1200){//高さが1200を超えている
+    if(h > heightLim){//高さが1200を超えている
         newW=heightLim*ratio;
         newH=heightLim;
     }else{//幅が1600を超えている
