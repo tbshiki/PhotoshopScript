@@ -3,8 +3,8 @@ var saveRulerUnits=preferences.rulerUnits;
 preferences.rulerUnits=Units.PIXELS;
 
 //上限
-var widthLim=1600; //幅上限
-var heightLim=1200; //高さ上限
+var widthLim=800; //幅上限
+var heightLim=800; //高さ上限
 
 //元ファイル情報
 var baseFile=activeDocument; //アクティブドキュメントを取得
@@ -19,7 +19,7 @@ if(baseFile.name.indexOf('square') !== -1) {
         baseFile.resizeCanvas(w,w,AnchorPosition.MIDDLECENTER);
         h=baseFile.width.value;
     }
-} 
+}
 
 var ratio=w/h; //縦横比を取得
 
@@ -27,11 +27,11 @@ var ratio=w/h; //縦横比を取得
 var newW=0; //新規幅初期化
 var newH=0; //新規高さ初期化
 
-if(w>widthLim || h>heightLim){
-    if(h > 1200){//高さが1200を超えている
+if(w > widthLim || h > heightLim){
+    if(h > heightLim){//高さが上限を超えている
         newW=heightLim*ratio;
         newH=heightLim;
-    }else{//幅が1600を超えている
+    }else{
         newW=widthLim;
         newH=widthLim/ratio;
     }
@@ -39,8 +39,8 @@ if(w>widthLim || h>heightLim){
     baseFile.resizeImage(newW,newH,baseFile.resolution,ResampleMethod.BICUBIC);
 }else{
     newW=w;
-    newH=h;    
- }
+    newH=h;
+}
 
 //ロゴ位置スケーリング計算
 var numFraction = 3; //元画像の 母数に設定する
@@ -58,7 +58,8 @@ var objFile;
 //    alert("選択されていません、終了します");
 //    exit;
 //    }
-strLogoFName = "Presets\\Scripts\\logo.psd";
+strLogoFName = (new File($.fileName)).parent+"\\logo.psd"; //標準のスクリプトフォルダに置いていない場合
+//strLogoFName = "Presets\\Scripts\\logo.psd"; //標準のスクリプトフォルダに置いている場合
 objFile = new File(strLogoFName);
 objLogo = open(objFile);
 
